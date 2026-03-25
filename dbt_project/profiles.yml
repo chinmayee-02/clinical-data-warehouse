@@ -1,0 +1,16 @@
+# Save to: ~/.dbt/profiles.yml
+# Never commit — contains credentials
+
+clinical_warehouse:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account:   "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user:      "{{ env_var('SNOWFLAKE_USER') }}"
+      password:  "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role:      DBT_ROLE
+      database:  CLINICAL_WAREHOUSE
+      warehouse: CLINICAL_WH
+      schema:    SILVER_STAGING
+      threads:   4

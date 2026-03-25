@@ -1,0 +1,56 @@
+{
+  "_comment": "Fivetran PostgreSQL → Snowflake Connector Configuration",
+  "_guide": "Use these exact settings when creating your connector in Fivetran UI",
+
+  "connector": {
+    "service": "postgres",
+    "schema": "ehr_bronze",
+    "config": {
+      "host": "your_postgres_host",
+      "port": 5432,
+      "database": "ehr",
+      "schema": "ehr",
+      "user": "fivetran_user",
+      "password": "YOUR_PASSWORD",
+      "connection_type": "Directly",
+      "update_method": "XMIN",
+      "_update_method_note": "Use XMIN if wal_level is not logical. Use LOG_BASED for CDC.",
+      "replication_slot": "fivetran_slot",
+      "publication_name": "fivetran_pub"
+    }
+  },
+
+  "destination": {
+    "service": "snowflake",
+    "config": {
+      "account": "your_account.snowflakecomputing.com",
+      "database": "CLINICAL_WAREHOUSE",
+      "schema": "BRONZE",
+      "user": "fivetran_service_user",
+      "password": "YOUR_PASSWORD",
+      "role": "FIVETRAN_ROLE",
+      "warehouse": "CLINICAL_WH"
+    }
+  },
+
+  "sync_frequency": 360,
+  "_sync_frequency_note": "Minutes between syncs. 360 = every 6 hours.",
+
+  "tables_to_sync": [
+    "patients",
+    "encounters",
+    "conditions",
+    "medications",
+    "payers",
+    "providers",
+    "observations",
+    "procedures",
+    "allergies"
+  ],
+
+  "_fivetran_audit_columns": {
+    "_comment": "Fivetran adds these automatically to every synced table",
+    "_fivetran_synced": "TIMESTAMP — when Fivetran last synced this row",
+    "_fivetran_deleted": "BOOLEAN — soft delete flag for deleted source rows"
+  }
+}

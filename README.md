@@ -8,7 +8,6 @@
 ---
 
 ## Live Dashboard
-👉 [View Clinical Operations Dashboard](https://lookerstudio.google.com/s/hJqiBAxYFUQ)
 
 ![Dashboard Preview](https://github.com/user-attachments/assets/d56ecd10-39f7-45b5-bf8c-7d3d2d192b57)
 
